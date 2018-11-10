@@ -16,6 +16,7 @@ stack::~stack(){
   delete [] arr;
 
 }
+//just constructors
 void stack::push(int n){
   
   int *arr1 = new int[sizeof(arr) + 1];
@@ -37,6 +38,14 @@ void stack::push(int n){
   size++;
 
 }
+/*
+what I did here was implement a vector that only grows by one each time
+you may be saying "wow, this is really inefficient"
+you are right.  It really is, but you're getting a two for one, because
+this is not only a stack implementation, it is also a vector implementation.
+
+The item you push is at index 0
+*/
 void stack::pop(){
 
   int *arr1 = new int[sizeof(arr)-1];
@@ -56,11 +65,13 @@ void stack::pop(){
   size--;
 
 }
+//this is the same.  Shift all indexes left, vector shrinks.
 int stack::top(){
 
   return arr[0];
 
 }
+//just a peek method
 bool stack::empty(){
 
   if(sizeof(arr) == 0)
@@ -69,3 +80,4 @@ bool stack::empty(){
     return false;
 
 }
+//true if the stack is empty

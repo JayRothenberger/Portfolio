@@ -25,7 +25,7 @@ class postfixCalculator {
   int getTopValue();
   void getInputString();
   bool isOp(string s);
-
+//many of these methods should be private, but for the added functionality of manually stepping through the process they are left public.
  private:
   stack s;
 
