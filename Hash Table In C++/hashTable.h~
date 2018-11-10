@@ -1,0 +1,31 @@
+//Jay Rothenberger (jr2fh) hashTable.h 10/23/18
+
+#ifndef HASHTABLE_H
+#define HASHTABLE_H
+
+#include <string>
+#include <vector>
+
+using namespace std;
+
+class hashTable {
+
+ public:
+  hashTable();
+  ~hashTable();
+
+  void insert(const string x);
+  bool includes(const string x);
+
+ private:
+  void rehash();
+  long hashString(string s);
+  int getNextPrime(unsigned int n);
+  bool checkprime(unsigned int p);
+  vector<string>* v;
+  unsigned long prime;
+ 
+};
+
+
+#endif
