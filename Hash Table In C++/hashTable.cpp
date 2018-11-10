@@ -5,7 +5,6 @@
 #include <math.h>
 #include <cstring>
 #include <string.h>
-#include <iostream>
 
 #include "hashTable.h"
 
@@ -23,11 +22,14 @@ hashTable::~hashTable(){
   delete v;
 
 }
+//constructors
 void hashTable::insert(const string s){
+    //This function inserts a string into the hash table
   long i = hashString(s);
   if(i < 0){
     return;
   }
+    //checks to see if there is an empty slot at the current hash value
   
   if(strncmp((*v)[i].c_str(), "", 1) == 0 || (*v)[i] == s || (*v)[prime] == s){
     (*v)[i] = s;
@@ -41,7 +43,7 @@ void hashTable::insert(const string s){
     (*v)[4*prime + i] = s;
   }
   else{
-    //cout << "rehashing" << endl;
+    //otherwise rehash the values into a larger table
     rehash();
     insert(s);
   }
@@ -49,8 +51,7 @@ void hashTable::insert(const string s){
     
 }
 bool hashTable::includes(const string s){
-  if(s.size() < 3)
-    return false;
+  //this function returns true if the hash table contains the string s, and false otherwise
 
   int i = hashString(s);
   
@@ -77,6 +78,7 @@ bool hashTable::includes(const string s){
     return false;
 }
 void hashTable::rehash(){
+    //this function creates a larger table and rehashes all of the values in the current table into it
   prime = getNextPrime(2*prime);
 
   unsigned long size = 5*prime;
@@ -109,26 +111,17 @@ void hashTable::rehash(){
   v = newV;
   return;
 }
+
 long hashTable::hashString(string s){
+    //here is the hash function for the string s.  It should be 1-1 for strings whose hash value is less than the largest long.
+    
   long l = 0;
-  if(s.size() < 3)
-    return -1;
 
   if(strncmp(s.c_str(), "", 1) == 0)
     return -1;
   
   for(int i = 0; i < s.size(); i++){
-    if((s[i] < 91 && s[i] > 64) || (s[i] < 123 && s[i] > 96)){
-      //only letters
-      if(s[i] > 90){;
-	l = l*31 + (s[i] - 96);
-      }else{
-	l = l*31 + (s[i] - 64);
-      }
-    }else{
-      //string contains 
-      return -1;
-  }
+	l = l*31 + s[i];
   }
 
   long hash = (l)%prime;
@@ -137,6 +130,7 @@ long hashTable::hashString(string s){
 
 }
 int hashTable::getNextPrime(unsigned int n){
+    //Finds the next prime after an unsigned integer
 
     while ( !checkprime(++n) );
     return n; // all your primes are belong to us
