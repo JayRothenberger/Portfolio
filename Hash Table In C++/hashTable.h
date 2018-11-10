@@ -34,7 +34,9 @@ class hashTable {
   ~hashTable();
 
   void insert(const string x);
+    //insert into hash table
   bool includes(const string x);
+    //does the table include the value?
 
  private:
   void rehash();
