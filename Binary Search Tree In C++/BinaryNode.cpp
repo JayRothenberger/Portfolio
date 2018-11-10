@@ -13,6 +13,7 @@ BinaryNode::BinaryNode(const string& val){
   right = NULL;
   value = val;
 }
+//binary node constructor with value
 BinaryNode::~BinaryNode(){
 
   delete right;
@@ -20,3 +21,4 @@ BinaryNode::~BinaryNode(){
   delete this;
   
 }
+//recursive deletion function

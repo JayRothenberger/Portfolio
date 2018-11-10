@@ -12,6 +12,7 @@ BinarySearchTree::BinarySearchTree(){
 BinarySearchTree::~BinarySearchTree(){
   delete root;
 }
+//constructors
 void BinarySearchTree::insert(const string& x){
   if(root == NULL){
     root = new BinaryNode(x);
@@ -32,6 +33,7 @@ void BinarySearchTree::insert(const string& x){
   }
   
 }
+//inserts a node with string value x into the tree at the proper location
 void BinarySearchTree::remove(const string& x){
   if(find(x)){
    
@@ -51,7 +53,6 @@ void BinarySearchTree::remove(const string& x){
       else
 	parent->right = NULL;
       
-      //delete rip;
       return;
     }
 
@@ -91,6 +92,7 @@ void BinarySearchTree::remove(const string& x){
 
   }
 }
+//removes a node with value of string x from the tree
 void BinarySearchTree::printTree(){
 
 }
@@ -115,6 +117,7 @@ string BinarySearchTree::pathTo(const string& x){
   }
   return route;
 }
+//returns a string of the path to a node with string value x
 bool BinarySearchTree::find(const string& x){
 
   BinaryNode* parent = seek(root, x);
@@ -126,9 +129,11 @@ bool BinarySearchTree::find(const string& x){
     return false;
 
 }
+//a boolean function that returns whether or not the given node with value string x exists in the tree
 int BinarySearchTree::numNodes() const{
   return nodes;
 }
+//returns the size of the tree
 BinaryNode* BinarySearchTree::remove(BinaryNode*& n, const string& x){
   //this should return the parent node of 
   int c = x.compare(n->value);
@@ -153,6 +158,7 @@ BinaryNode* BinarySearchTree::remove(BinaryNode*& n, const string& x){
     else
       return NULL;
 }
+//recursive helper function for the remove function
 string BinarySearchTree::min(BinaryNode* node) const{
   if(node->left != NULL)
     return min(node->left);
@@ -160,13 +166,15 @@ string BinarySearchTree::min(BinaryNode* node) const{
     return node->value;
 
 }
+//recursive helper function that finds the minimum value in a subtree.
+
 void BinarySearchTree::printTree(BinaryNode* root, Trunk* prev, bool isLeft){
 
-  
+  //STUB
 
 }
-//returns the node which is the root of the node where the string should
-//be inserted, or if the value is the same it returns the node
+//didn't need this helper function for printing the tree.  Left it for posterity
+
 BinaryNode* BinarySearchTree::seek(BinaryNode*& node, const string& x) const{
   //the one in the parentheses is lower if the number is negative
   int c = x.compare(node->value);
@@ -183,3 +191,6 @@ BinaryNode* BinarySearchTree::seek(BinaryNode*& node, const string& x) const{
     else
       return node;
 }
+/*
+returns the node which is the root of the node where the string should be inserted, or if the value is the same it returns the node
+*/

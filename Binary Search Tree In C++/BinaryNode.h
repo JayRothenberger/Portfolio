@@ -6,6 +6,7 @@ using namespace std;
 class BinaryNode {
   BinaryNode();
   BinaryNode(const string& val);
+    //constructor that builds the node with a value
   ~BinaryNode();
 
   string value;
