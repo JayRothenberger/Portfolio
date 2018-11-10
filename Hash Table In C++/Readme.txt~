@@ -1,5 +1,0 @@
-This is a hash table that I implemented in C++ from scratch.  Attached
-to the hash table is file called wordPuzzle.cpp that completes a word
-search on one of the grid files.  I wrote the algorithm that searches
-through the word grid for the words in the dictionary, and I am particularly
-proud of its efficientcy.
