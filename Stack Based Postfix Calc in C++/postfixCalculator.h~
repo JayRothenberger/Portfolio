@@ -1,0 +1,55 @@
+//h file for the postfix calculator by Jay Rothenberger (jr2fh) 9/17/18
+
+#ifndef POSTFIXCALCULATOR_H
+#define POSTFIXCALCULATOR_H
+
+#include "stack.h"
+#include <string>
+#include <sstream>
+
+using namespace std;
+
+class postfixCalculator;
+
+class postfixCalculator {
+ public:
+  postfixCalculator();
+  ~postfixCalculator();
+  void push(int n);
+  int pop();
+  void negate();
+  void add();
+  void subtract();
+  void divide();
+  void multiply();
+  int getTopValue();
+  void getInputString();
+  bool isOp(string s);
+
+ private:
+  stack s;
+
+};
+/*
+stacks have the following properties:
+
+empty
+size
+top
+
+and these actions:
+
+push
+pop
+emplace (slide something into a location in the stack)
+swap (swap contents (?))
+
+*/
+
+/*
+remember that postfix notation operators are read backwards
+
+312-+ is read as (1 - 2) + 3 (exactly this arrangement)
+
+ */
+#endif
