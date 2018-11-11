@@ -68,7 +68,7 @@ const arg = message.content.trim().match(/{([A-Z]+|[a-z]+|\s+|\-+|\#+|[0-9]+)+}/
             
         }
     var args = arg[index].trim().replace(/{|}/g, "").split(/ +/g);
-    var command = args[0];
+    var command = args[0].toLowerCase();
         
     console.log("args: ", arg, "args for this command: ", args, "command: ", command, "index: ", index)
 
@@ -77,7 +77,7 @@ const arg = message.content.trim().match(/{([A-Z]+|[a-z]+|\s+|\-+|\#+|[0-9]+)+}/
     
     // get the delete count, as an actual number.
 
-    const deleteCount = parseInt(args[0], 10) + 1;
+    const deleteCount = parseInt(args[1], 10) + 1;
     // Ooooh nice, combined conditions. <3
 
     if(!deleteCount || deleteCount < 2 || deleteCount > 100)
@@ -126,11 +126,14 @@ const arg = message.content.trim().match(/{([A-Z]+|[a-z]+|\s+|\-+|\#+|[0-9]+)+}/
             
         //the data returned from the API was a JSON once or twice, but now it is a string?
         console.log(data)
+        
+        if(typeof data === 'string')
+            data = JSON.parse(data)
             
         if(data.private)//profiles that are private cannot be read
             message.reply("your profile seems to be private, I cannot see it")
         else //because the JSON is pretending to be a string we must parse it
-            message.reply("your rank is: " + JSON.parse(data).rating)
+            message.reply("your rank is: " + data.rating)
         });
 
     }
