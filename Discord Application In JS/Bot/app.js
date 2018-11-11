@@ -1,5 +1,6 @@
 // Load up the discord.js library
 const Discord = require("discord.js");
+var owjs = require('overwatch-js');
 const client = new Discord.Client();
 const config = require("./config.json");
 //const pen = require("./TonyPen.js")
@@ -48,28 +49,26 @@ client.on("message", async message => {
   // and not get into a spam loop (we call that "botception").
   if(message.author.bot) return;
   
-  // Also good practice to ignore any message that does not start with our prefix, 
-    // which is set in the configuration file.
-    var reg = RegExp('{([a-z]*|\s*)+}');
+    var reg = /{([a-z]+|\s+|\-+|\#+|[0-9]+)+}/g;
     
-  console.log("Message.content: '" + message.content.toLowerCase() + "' Matches reg: " + reg.exec(message.content.toLowerCase()))
+  console.log("Message.content: '" + message.content.toLowerCase() + "' Matches reg: " + message.content.toLowerCase().match(/{([a-z]+|\s+|\-+|\#+|[0-9]+)+}/g))
     
-  if(!reg.exec(message.content.toLowerCase())) return;
+  if(!message.content.toLowerCase().match(/{([a-z]+|\s+|\-+|\#+|[0-9]+)+}/g)) return;
   
   // Here we separate our "command" name, and our "arguments" for the command. 
   // e.g. if we have the message "{say Is this the real life?}" , we'll get the following:
   // command = say
   // args = ["Is", "this", "the", "real", "life?"]
   
-const arg = message.content.trim().split(reg);
-    reg.exec(message.content).forEach(async function(element, index, array){
+const arg = message.content.trim().match(/{([A-Z]+|[a-z]+|\s+|\-+|\#+|[0-9]+)+}/g);
+    message.content.toLowerCase().match(/{([a-z]+|\s+|\-+|\#+|[0-9]+)+}/g).forEach(async function(element, index, array){
         var soFar;
         for(var i = 0; index >= i; i++){
-            soFar += reg.exec(message.content)[i];
+            message.content.toLowerCase().match(/{([a-z]+|\s+|\-+|\#+|[0-9]+)+}/g)[i];
             
         }
-    var args = arg[index+1].trim().split(/ +/g);
-    var command = element.toLowerCase().replace(/{/g,"").replace(/}/g,"");
+    var args = arg[index].trim().replace(/{|}/g, "").split(/ +/g);
+    var command = args[0];
         
     console.log("args: ", arg, "args for this command: ", args, "command: ", command, "index: ", index)
 
@@ -105,6 +104,35 @@ const arg = message.content.trim().split(reg);
         message.delete()
         message.channel.send(args.join(" "))
         
+    }
+    if(command === "rank"){
+        //clean the input for the API
+        var me = args[1].replace('#', '-')
+        //create a virtual window to run jQuery in
+        var jsdom = require('jsdom');
+        const { JSDOM } = jsdom;
+        const { window } = new JSDOM();
+        const { document } = (new JSDOM('')).window;
+        global.document = document;
+        //run jQuery on the document we are pretending exists
+        var $ = jQuery = require('jquery')(window);
+
+        //here is the url for the api with the command argument battletag
+        var url = 'https://ow-api.com/v1/stats/pc/us/' + me + '/profile';
+        
+        //log the url for debugging
+        console.log("Url: " + url)
+        $.get(url, function(data, status){
+            
+        //the data returned from the API was a JSON once or twice, but now it is a string?
+        console.log(data)
+            
+        if(data.private)//profiles that are private cannot be read
+            message.reply("your profile seems to be private, I cannot see it")
+        else //because the JSON is pretending to be a string we must parse it
+            message.reply("your rank is: " + JSON.parse(data).rating)
+        });
+
     }
     });
     
