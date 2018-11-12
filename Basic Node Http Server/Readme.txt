@@ -10,3 +10,5 @@ serverdb.sql: The SQL schema containing the user table accessed by the server fo
 index.html: A basic login page with a draggable login form.
 
 user.html: A stubbed page served after the user logs in. 
+
+NOTE: the node modules: express, mysql, url, body-parser, path, are all required for this application, but are not included in the folder.
