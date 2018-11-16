@@ -37,7 +37,10 @@ class hashTable {
     //insert into hash table
   bool includes(const string x);
     //does the table include the value?
-
+/*
+unimplemented here is delete, but the strategy would be to replace with a /, 
+and then treat / as a '' on every insert.  I might come back and do this later.
+*/
  private:
   void rehash();
   long hashString(string s);
