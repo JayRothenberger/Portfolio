@@ -69,7 +69,7 @@ soup = BeautifulSoup(raw_html, 'html.parser')
 
 f = open("Overscrape.html", "w")
 f.close()
-#writing in binary mode becasue teh encode outputs binary encoded utf8 and not a string
+#writing in binary mode because the encode outputs binary encoded utf8 and not a string
 f = open("Overscrape.html", "wb")
 
 f.write(soup.prettify().encode('utf8'))
