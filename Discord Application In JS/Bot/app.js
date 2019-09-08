@@ -68,6 +68,17 @@ const arg = message.content.trim().match(/{([A-Z]+|[a-z]+|\s+|\-+|\#+|[0-9]+)+}/
             
         }
     var args = arg[index].trim().replace(/{|}/g, "").split(/ +/g);
+    
+    args.forEach(function(element, index, array){
+        
+        if(politeExp.exec(element)){
+            
+            args.splice(index, 1)
+            
+        }
+        
+    });
+    
     var command = args[0].toLowerCase();
         
     console.log("args: ", arg, "args for this command: ", args, "command: ", command, "index: ", index)
